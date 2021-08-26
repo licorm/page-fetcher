@@ -1,4 +1,4 @@
-//require 
+//require
 const request = require('request');
 const fs = require('fs');
 const readline = require('readline');
@@ -21,34 +21,34 @@ request(URL, (error, response, body) => {
   fs.access(file, fs.F_OK, err => {
     //if file exists, it will tell you it exists and ask you to overwrite it or exit program
     if (!err) {
-      console.log('The file exists')
+      console.log('The file exists');
       const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
       });
-       rl.question("File already exists, if you would like to overwrite file press Y, otherwise app will exit.", (answer) => {
-         if (answer === 'y') {
-           fs.writeFile(file, body, err => {
-             if (err) {
-               console.err(err)
-               return;
-             }
-             console.log(`Downloaded and saved ${body.length} bytes to ${file}`)
-           })
-         }
-         rl.close();
-         return;
-       })
-       return;
-    } 
+      rl.question("File already exists, if you would like to overwrite file press Y, otherwise app will exit.", (answer) => {
+        if (answer === 'y') {
+          fs.writeFile(file, body, err => {
+            if (err) {
+              console.err(err);
+              return;
+            }
+            console.log(`Downloaded and saved ${body.length} bytes to ${file}`);
+          });
+        }
+        rl.close();
+        return;
+      });
+      return;
+    }
     //called when file does not exist, creates file, writes to it and saves it then console.logs that it was written
     fs.writeFile(file, body, err => {
       if (err) {
-        console.err(err)
+        console.err(err);
         return;
       }
-      console.log(`Downloaded and saved ${body.length} bytes to ${file}`)
-    })
-  })
+      console.log(`Downloaded and saved ${body.length} bytes to ${file}`);
+    });
+  });
 });
 
